@@ -29,6 +29,15 @@
 		</div>
 	</div>
 	
+	<div class="container" th:fragment="category-home">
+		<div class="row">
+			<div class="col-12">
+				<a th:href="@{/}" class="btn btn-sm btn-outline-warning fw-bold">Home Page</a>
+				<a th:href="@{/categories}" class="btn btn-sm btn-outline-primary fw-bold ms-5">Category Home</a>
+			</div>
+		</div>
+	</div>
+	
 	<div class="col-12 text-danger" th:fragment="errorDiv(field)"
      th:if="${#fields.hasErrors(field)}">
 	    <ul>
