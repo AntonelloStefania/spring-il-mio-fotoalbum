@@ -15,6 +15,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.CorsFilter;
 
@@ -24,7 +27,9 @@ public class AuthConf {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
-        http.authorizeHttpRequests()
+        http.csrf()
+        .csrfTokenRepository(csrfTokenRepository()).and()
+        .authorizeHttpRequests()
         	.requestMatchers("/api/**").permitAll()
             .requestMatchers("/**").hasAuthority("ADMIN")
             .and().formLogin()
@@ -55,13 +60,22 @@ public class AuthConf {
         return authProvider;
     }
     
+    //token csfr
+    @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
+        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+        repository.setSessionAttributeName("_csrf");
+        return repository;
+    }
+    
+    
     @Bean
     FilterRegistrationBean<CorsFilter> getCorsSettings() {
         
         final CorsConfiguration config = new CorsConfiguration();
         
         // OPTIONS
-//        config.setAllowCredentials(true);
+        config.setAllowCredentials(true);
         
         config.addAllowedOrigin("http://localhost:5173"); // DEVELOP FE SERVER
         
