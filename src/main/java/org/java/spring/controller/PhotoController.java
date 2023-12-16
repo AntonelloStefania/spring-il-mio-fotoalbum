@@ -2,10 +2,8 @@ package org.java.spring.controller;
 
 import java.util.List;
 
-import org.java.spring.auth.db.pojo.Role;
+
 import org.java.spring.auth.db.pojo.User;
-import org.java.spring.auth.db.service.RoleService;
-import org.java.spring.auth.db.service.UserService;
 import org.java.spring.pojo.Category;
 import org.java.spring.pojo.Photo;
 import org.java.spring.service.CategoryService;

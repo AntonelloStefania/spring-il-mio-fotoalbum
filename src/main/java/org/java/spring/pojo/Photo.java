@@ -38,6 +38,7 @@ public class Photo {
 	@URL(protocol="https")
 	@NotBlank(message="la foto URL non può contenere spazi vuoti")
 	private String url;
+
 	
 	@Column(nullable=false)
 	boolean visible;
@@ -104,6 +105,6 @@ public class Photo {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	
 }
