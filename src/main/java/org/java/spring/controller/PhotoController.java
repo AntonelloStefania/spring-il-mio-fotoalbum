@@ -2,7 +2,10 @@ package org.java.spring.controller;
 
 import java.util.List;
 
+import org.java.spring.auth.db.pojo.Role;
 import org.java.spring.auth.db.pojo.User;
+import org.java.spring.auth.db.service.RoleService;
+import org.java.spring.auth.db.service.UserService;
 import org.java.spring.pojo.Category;
 import org.java.spring.pojo.Photo;
 import org.java.spring.service.CategoryService;
@@ -33,18 +36,28 @@ public class PhotoController {
 	public String getPhotos(Model model,
 			@RequestParam(required = false) String search) {
 		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+		
 	        if (authentication != null && authentication.getPrincipal() instanceof User) {
 	            User user = (User) authentication.getPrincipal();
 	            int userId = user.getId();
-		
-		List<Photo> photos = search == null 
-				? photoService.findByUserId(userId)
-				: photoService.findByName(search, userId);
-		model.addAttribute("photos", photos);
-		model.addAttribute("search", search == null ? "" : search);
+	           
+	            if (user.isAdmin()) {
+	            	List<Photo> photos = search == null 
+						? photoService.findByUserId(userId)
+						: photoService.findByName(search, userId);
+				model.addAttribute("photos", photos);
+				
+		            }else if(user.isSuperAdmin()) {
+		            	List<Photo> photos = search == null 
+								? photoService.findAll()
+								: photoService.findAllByName(search);
+						model.addAttribute("photos", photos);
+		            }
+	       
+	            model.addAttribute("search", search == null ? "" : search);
+	            model.addAttribute("userId", userId);
 	        }
-		
+		 
 		return "firstPage";
 	}
 	
@@ -113,10 +126,7 @@ public class PhotoController {
 	
 	@PostMapping("/photo/delete/{id}")
 	public String deletePizza(@PathVariable int id) {
-		Photo photo = photoService.findById(id);
-		List<Category> categories = photo.getCategories();
-		categories.forEach(categoryService::delete);
-		
+		Photo photo = photoService.findById(id);		
 		photoService.delete(photo);
 		
 		return "redirect:/";

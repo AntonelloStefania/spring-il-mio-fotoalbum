@@ -24,6 +24,9 @@ public class PhotoService {
 	public List<Photo> findByName(String query, int id){
 		return photoRepository.findByNameContainingIgnoreCaseAndUser_id(query, id);
 	}
+	public List<Photo> findAllByName(String query){
+		return photoRepository.findByNameContainingIgnoreCase(query);
+	}
 	
 	public List<Photo> findByVisible(){
 		return photoRepository.findByVisibleTrue();

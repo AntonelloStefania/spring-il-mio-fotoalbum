@@ -61,12 +61,17 @@ public class Application implements CommandLineRunner{
 		
 		
 		Role roleAdmin = new Role("ADMIN");
+		Role superAdm = new Role("SUPERADMIN");
+		roleService.save(superAdm);
 		roleService.save(roleAdmin);
 		
 		String pws = AuthConf.passwordEncoder().encode("pws");
 		
 		User admin1 = new User("mignolo", pws, roleAdmin);
 		User admin2 = new User("mignolo2", pws, roleAdmin);
+		User superAdmin = new User("mignoloAdm", pws, superAdm);
+		
+		userService.save(superAdmin);
 		userService.save(admin1);
 		userService.save(admin2);
 		

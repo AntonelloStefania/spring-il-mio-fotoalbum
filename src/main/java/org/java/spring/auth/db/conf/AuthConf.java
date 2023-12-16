@@ -32,7 +32,7 @@ public class AuthConf {
         .authorizeHttpRequests()
         .requestMatchers(HttpMethod.POST,"/api/contact/**").permitAll()
         .requestMatchers("/api/**").permitAll()
-        .requestMatchers("/**").hasAnyAuthority("ADMIN")
+        .requestMatchers("/**").hasAnyAuthority("ADMIN", "SUPERADMIN")
         .and().formLogin()
         .and().logout()
         ;

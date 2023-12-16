@@ -73,6 +73,12 @@ public class User implements UserDetails{
 	public void setRoles(Role...roles) {
 		setRoles(Arrays.asList(roles));
 	}
+	public boolean isAdmin() {
+	 return	roles.stream().anyMatch(role->role.getName().equals("ADMIN"));
+	}
+	public boolean isSuperAdmin() {
+		 return	roles.stream().anyMatch(role->role.getName().equals("SUPERADMIN"));
+	}
 	
 	public List<Photo> getPhoto() {
 		return photo;
