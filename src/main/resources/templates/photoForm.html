@@ -11,7 +11,7 @@
 	<div th:replace="frags::home"></div>
 	<div class="container" th:object="${photo}">
 		<div class="row">
-			<div class="col-12 text-center mt-5">
+			<div class="col-12 text-center mt-5" th:if="*{checked} == true">
 				<p class="text-danger fw-bold">!!! La foto non può essere pubblicata perché è in revisione da parte di un superAdmin !!!</p>
 			</div>
 			<div class="col-12 text-center my-5">
@@ -22,7 +22,7 @@
 						<div class="col-lg-6 col-12">
 							<div class="form-group my-3">
 					            <label for="name" class="control-label mb-2">Nome della foto</label>
-					            <input type="text" class="form-control" id="name"  th:field="*{name}">
+					            <input type="text" class="form-control" id="name"  th:field="*{name}" >
 					            <div th:replace="frags::errorDiv('name')"/>
 					         </div>
 					         <div class="form-group my-3">

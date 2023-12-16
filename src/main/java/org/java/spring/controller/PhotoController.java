@@ -124,7 +124,7 @@ public class PhotoController {
 	        if (bindingResult.hasErrors()) {
 	            // Handle validation errors
 	            model.addAttribute("photo", updatedPhoto);
-	            return "photoHTML/photoCreate";
+	            return "redirect:/";
 	        }
 
 	        if (authentication != null && authentication.getPrincipal() instanceof User) {
@@ -135,6 +135,9 @@ public class PhotoController {
 	            if (user.isSuperAdmin()) {
 	                photo.setVisible(updatedPhoto.isVisible());
 	                photo.setChecked(updatedPhoto.isChecked());
+	                if (photo.isChecked()) {
+	                    photo.setVisible(false);
+	                }
 	            } else {
 	                photo.setName(updatedPhoto.getName());
 	                photo.setDescription(updatedPhoto.getDescription());
