@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.java.spring.pojo.Photo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -35,6 +37,7 @@ public class User implements UserDetails{
 	
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
+	@Cascade(CascadeType.LOCK)
 	private List<Photo> photo;
 	
 	@ManyToMany(fetch=FetchType.EAGER)

@@ -4,6 +4,8 @@ package org.java.spring.pojo;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 import org.java.spring.auth.db.pojo.User;
@@ -38,6 +40,8 @@ public class Photo {
 	@URL(protocol="https")
 	@NotBlank(message="la foto URL non può contenere spazi vuoti")
 	private String url;
+	
+	private boolean checked;
 
 	
 	@Column(nullable=false)
@@ -52,13 +56,14 @@ public class Photo {
 	private List<Category> categories;
 	
 	public Photo() {};
-	public Photo(String name, String description, String url, boolean visible, User user,Category...categories) {
+	public Photo(String name, String description, String url, boolean visible, User user, boolean checked,Category...categories) {
 		setName(name);
 		setDescription(description);
 		setUrl(url);
 		setVisible(visible);
 		setUser(user);
 		setCategories(categories);
+		
 	}
 	public int getId() {
 		return id;
@@ -105,6 +110,13 @@ public class Photo {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public boolean isChecked() {
+		return checked;
+	}
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
 
 	
 }

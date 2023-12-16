@@ -92,8 +92,10 @@ public class PhotoController {
 		if (authentication != null && authentication.getPrincipal() instanceof User) {
             User user = (User) authentication.getPrincipal();
            
-		photo.setUser(user);
-		List<Category> categories = categoryService.findAll();
+            photo.setUser(user);
+            List<Category> categories = categoryService.findAll();
+        
+            
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("photo", photo);
 			model.addAttribute("categories", categories);
@@ -103,6 +105,8 @@ public class PhotoController {
 	}
 		return "redirect:/";
 	}
+	
+
 	
 	@GetMapping("/photo/edit/{id}")
 	public String editPhoto(Model model, @PathVariable int id) {
@@ -114,20 +118,45 @@ public class PhotoController {
 		return "photoForm";
 	}
 	
-	@PostMapping("/photo/edit/{id}")
-	public String updatePhoto(Model model,
-			@Valid @ModelAttribute Photo photo,
-			BindingResult bindingResult
-			) {
-		return storePhoto(model, photo, bindingResult);
-	}
 	
+	 @PostMapping("photo/edit/{id}")
+	    public String updatePhoto(Model model, @Valid @ModelAttribute Photo updatedPhoto, BindingResult bindingResult, Authentication authentication) {
+	        if (bindingResult.hasErrors()) {
+	            // Handle validation errors
+	            model.addAttribute("photo", updatedPhoto);
+	            return "photoHTML/photoCreate";
+	        }
+
+	        if (authentication != null && authentication.getPrincipal() instanceof User) {
+	            User user = (User) authentication.getPrincipal();
+	            
+	            Photo photo = photoService.findById(updatedPhoto.getId());
+
+	            if (user.isSuperAdmin()) {
+	                photo.setVisible(updatedPhoto.isVisible());
+	                photo.setChecked(updatedPhoto.isChecked());
+	            } else {
+	                photo.setName(updatedPhoto.getName());
+	                photo.setDescription(updatedPhoto.getDescription());
+	                photo.setUrl(updatedPhoto.getUrl());
+	                photo.setCategories(updatedPhoto.getCategories());
+	                photo.setVisible(updatedPhoto.isVisible());
+	                
+	            }
+
+	            photoService.save(photo);
+	        }
+
+	        return "redirect:/";
+	    }
 	@PostMapping("/photo/delete/{id}")
-	public String deletePizza(@PathVariable int id) {
+	public String deletePhoto(@PathVariable int id) {
 		Photo photo = photoService.findById(id);		
 		photoService.delete(photo);
 		
 		return "redirect:/";
 	}
+	
+
 	
 }
