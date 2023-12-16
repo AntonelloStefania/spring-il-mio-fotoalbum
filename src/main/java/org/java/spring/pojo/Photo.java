@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
+import org.java.spring.auth.db.pojo.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -40,17 +42,21 @@ public class Photo {
 	@Column(nullable=false)
 	boolean visible;
 	
+	@ManyToOne
+	private User user;
+	
 	@ManyToMany
 	@Column(nullable=false)
 	@Size(min = 1, message = "Devi selezionare almeno una categoria")
 	private List<Category> categories;
 	
 	public Photo() {};
-	public Photo(String name, String description, String url, boolean visible, Category...categories) {
+	public Photo(String name, String description, String url, boolean visible, User user,Category...categories) {
 		setName(name);
 		setDescription(description);
 		setUrl(url);
 		setVisible(visible);
+		setUser(user);
 		setCategories(categories);
 	}
 	public int getId() {
@@ -92,5 +98,12 @@ public class Photo {
 	public void setCategories(Category...categories) {
 		setCategories(Arrays.asList(categories));
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	
 }

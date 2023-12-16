@@ -21,12 +21,15 @@ public class PhotoService {
 		return photoRepository.findById(id).get();
 	}
 	
-	public List<Photo> findByName(String query){
-		return photoRepository.findByNameContainingIgnoreCase(query);
+	public List<Photo> findByName(String query, int id){
+		return photoRepository.findByNameContainingIgnoreCaseAndUser_id(query, id);
 	}
 	
 	public List<Photo> findByVisible(){
 		return photoRepository.findByVisibleTrue();
+	}
+	public List<Photo> findByUserId(int id){
+		return photoRepository.findByUserId(id);
 	}
 	
 	public void save(Photo photo) {

@@ -15,29 +15,32 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
+@CrossOrigin
 public class AuthConf {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
-        http.csrf()
-        .csrfTokenRepository(csrfTokenRepository()).and()
+        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+        .and()
         .authorizeHttpRequests()
-        	.requestMatchers("/api/**").permitAll()
-            .requestMatchers("/**").hasAuthority("ADMIN")
-            .and().formLogin()
-            .and().logout()
+        .requestMatchers(HttpMethod.POST,"/api/contact/**").permitAll()
+        .requestMatchers("/api/**").permitAll()
+        .requestMatchers("/**").hasAnyAuthority("ADMIN")
+        .and().formLogin()
+        .and().logout()
         ;
         
         return http.build();
     }
+    
+    
     
     @Bean
     UserDetailsService userDetailsService() {
@@ -60,22 +63,13 @@ public class AuthConf {
         return authProvider;
     }
     
-    //token csfr
-    @Bean
-    public CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setSessionAttributeName("_csrf");
-        return repository;
-    }
-    
-    
     @Bean
     FilterRegistrationBean<CorsFilter> getCorsSettings() {
         
         final CorsConfiguration config = new CorsConfiguration();
         
         // OPTIONS
-        config.setAllowCredentials(true);
+       // config.setAllowCredentials(true);
         
         config.addAllowedOrigin("http://localhost:5173"); // DEVELOP FE SERVER
         
@@ -90,6 +84,7 @@ public class AuthConf {
         config.addAllowedMethod(HttpMethod.POST);
         config.addAllowedMethod(HttpMethod.PUT);
         config.addAllowedMethod(HttpMethod.DELETE);
+        
         
         // SET CONFIG ON PATHS
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

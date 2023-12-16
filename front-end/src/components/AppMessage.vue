@@ -1,8 +1,5 @@
 <template>
-    <head>
-        <meta name="_csrf" th:content="${_csrf.token}" />
-        <meta name="_csrf_header" th:content="${_csrf.headerName}" />
-    </head>
+
     <div class="container">
         <div class="row my-5">
             <div class="my-3 text-start col-12">
@@ -13,7 +10,7 @@
             </div>
             <div class="col-6 offset-3 card p-5">
                 <form class="fw-bold" @submit.prevent="submit">
-                
+
                     <div class="form-group my-3">
                         <label for="name" class="d-block">Email</label>
                         <input type="text" name="email" id="name" class="form-control" v-model="newMessage.email">
@@ -42,23 +39,17 @@ const newMessage = ref({
 })
 
 
+const submit = async () => {
+    try {
+        
+        const data = await axios.post("http://localhost:8080/api/contact", newMessage.value
+        );
 
-
-const submit = async()=>{
-    const csrfToken = document.querySelector("meta[name='_csrf']").content;
-    const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
-    axios.defaults.headers.common[csrfHeader] = csrfToken;
-    const data = await axios.post( "http://localhost:8080/api/contact", newMessage.value,{
-        headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-TOKEN": "X-XSRF-TOKEN", // Sostituisci con il nome dell'intestazione CSRF utilizzato dal tuo backend
-      },
+        emits("created");
+        console.log(data);
+    } catch (error) {
+        console.error(error);
     }
-    
-    );
-    emits("created");
-    console.log(data)
-    return;
-}
+};
 
 </script>

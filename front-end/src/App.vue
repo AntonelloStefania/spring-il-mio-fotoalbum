@@ -16,7 +16,7 @@
     @goBack="goBack"
     />
   </div>
-  <div>
+  <div v-else>
     <AppMessage @back="sendingMessage = false"
       @created="sendingMail"/>
   </div>
