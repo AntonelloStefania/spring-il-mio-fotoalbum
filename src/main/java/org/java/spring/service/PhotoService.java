@@ -29,7 +29,7 @@ public class PhotoService {
 	}
 	
 	public List<Photo> findByVisible(){
-		return photoRepository.findByVisibleTrue();
+		return photoRepository.findByVisibleFalse();
 	}
 	public List<Photo> findByUserId(int id){
 		return photoRepository.findByUserId(id);

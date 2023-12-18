@@ -21,14 +21,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
-@CrossOrigin
+
 public class AuthConf {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
-        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        .and()
+        http.csrf().disable()
         .authorizeHttpRequests()
         .requestMatchers(HttpMethod.POST,"/api/contact/**").permitAll()
         .requestMatchers("/api/**").permitAll()
@@ -69,7 +68,7 @@ public class AuthConf {
         final CorsConfiguration config = new CorsConfiguration();
         
         // OPTIONS
-       // config.setAllowCredentials(true);
+        config.setAllowCredentials(true);
         
         config.addAllowedOrigin("http://localhost:5173"); // DEVELOP FE SERVER
         

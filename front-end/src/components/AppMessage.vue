@@ -42,8 +42,10 @@ const newMessage = ref({
 const submit = async () => {
     try {
         
+        
         const data = await axios.post("http://localhost:8080/api/contact", newMessage.value
         );
+       
 
         emits("created");
         console.log(data);

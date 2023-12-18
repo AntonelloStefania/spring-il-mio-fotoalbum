@@ -136,7 +136,7 @@ public class PhotoController {
 	                photo.setVisible(updatedPhoto.isVisible());
 	                photo.setChecked(updatedPhoto.isChecked());
 	                if (photo.isChecked()) {
-	                    photo.setVisible(false);
+	                    photo.setVisible(true);
 	                }
 	            } else {
 	                photo.setName(updatedPhoto.getName());

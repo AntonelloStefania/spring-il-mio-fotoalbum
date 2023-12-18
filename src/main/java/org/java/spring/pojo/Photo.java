@@ -63,6 +63,8 @@ public class Photo {
 		setVisible(visible);
 		setUser(user);
 		setCategories(categories);
+		setChecked(checked);
+		
 		
 	}
 	public int getId() {

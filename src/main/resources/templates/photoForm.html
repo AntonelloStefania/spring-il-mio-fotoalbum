@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
 	<link rel="stylesheet" th:href="@{/css/style.css}"/>
+	<div th:replace="frags::font"></div>
 </head>
 <body>
 	<div th:replace="frags::header"></div>
@@ -17,8 +18,7 @@
 			<div class="col-12 text-center my-5">
 				<form 	
 					method="POST">
-					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-					<div class="col-12 d-lg-flex">
+			<!--		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->					<div class="col-12 d-lg-flex">
 						<div class="col-lg-6 col-12">
 							<div class="form-group my-3">
 					            <label for="name" class="control-label mb-2">Nome della foto</label>
@@ -55,9 +55,9 @@
 			     	<div class="text-center my-5 d-lg-flex flex-column align-items-lg-center justify-content-center">
 						<div class="form-check form-switch text-center d-flex  col-lg-6 col-12"  th:if="${photo.checked == false}" >
 						  	<label class="form-check-label" for="flexSwitchCheckChecked">Vuoi rendere la tua foto invisibile al pubblico?</label>
-							<span class="ms-5">si</span>
-							<input class="form-check-input mx-2" type="checkbox" id="flexSwitchCheckChecked"  th:value="checked ? true : false" th:field="*{visible}" >
-							<span>no</span>
+							<span class="ms-5">no</span>
+							<input class="form-check-input mx-2" type="checkbox" id="flexSwitchCheckChecked"  th:value="checked ? false : true" th:field="*{visible}" >
+							<span>si</span>
 						</div>
 						<div class="form-check form-switch text-center d-flex my-5  col-lg-6 col-12" sec:authorize="hasAnyAuthority('SUPERADMIN')">
 						  	<label class="form-check-label" for="flexSwitchCheckChecked">NASCONDI FOTO</label>
@@ -73,6 +73,6 @@
 			</div>
 		</div>
 	</div>
-
+<div th:replace="frags::footer"></div>
 </body>
 </html>
