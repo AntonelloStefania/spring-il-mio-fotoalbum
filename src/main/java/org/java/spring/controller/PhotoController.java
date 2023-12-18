@@ -2,11 +2,12 @@ package org.java.spring.controller;
 
 import java.util.List;
 
-
 import org.java.spring.auth.db.pojo.User;
 import org.java.spring.pojo.Category;
+import org.java.spring.pojo.Message;
 import org.java.spring.pojo.Photo;
 import org.java.spring.service.CategoryService;
+import org.java.spring.service.MessageService;
 import org.java.spring.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -30,6 +31,9 @@ public class PhotoController {
 	@Autowired
 	CategoryService categoryService;
 	
+	@Autowired
+	MessageService messageService;
+	
 	@GetMapping
 	public String getPhotos(Model model,
 			@RequestParam(required = false) String search) {
@@ -49,6 +53,8 @@ public class PhotoController {
 		            	List<Photo> photos = search == null 
 								? photoService.findAll()
 								: photoService.findAllByName(search);
+		            	List<Message> messages = messageService.findAll();
+		            	model.addAttribute("messages", messages);
 						model.addAttribute("photos", photos);
 		            }
 	       

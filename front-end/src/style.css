@@ -1,3 +1,62 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-size: contain;
+  min-height: 100vh !important;
+  color: white !important;
+  background: rgb(43, 41, 40);
+  background: linear-gradient(156deg, rgba(43, 41, 40, 1) 45%, rgba(65, 24, 9, 1) 71%, rgba(142, 49, 16, 1) 100%);
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.btn-warning {
+  background-color: rgb(167, 74, 18) !important;
+  border: rgb(167, 74, 18) 2px solid !important;
+  color: whitesmoke !important;
+  font-weight: bold !important;
+}
+
+.btn-warning:hover {
+  background-color: rgb(114, 50, 12) !important;
+  border: rgb(114, 50, 12) 2px solid !important;
+}
+
+.btn-outline-warning {
+  border: rgb(167, 74, 18) 2px solid !important;
+  color: rgb(255, 128, 0) !important;
+}
+
+.btn-outline-warning:hover {
+  background-color: rgb(114, 50, 12) !important;
+  border: rgb(114, 50, 12) 2px solid !important;
+
+}
+
+.btn-danger {
+  background-color: rgb(231, 86, 37) !important;
+}
+
+.btn-outline-danger {
+  border: 2px solid rgb(231, 86, 37) !important;
+}
+
+.btn-outline-danger:hover {
+  background-color: rgb(231, 86, 37) !important;
+}
+
+.btn-primary {
+  background-color: rgb(115, 109, 106) !important;
+  border: 2px solid black !important;
+}
+
+.btn-primary:hover {
+  background-color: rgb(157, 152, 149) !important;
+  border: 2px solid black !important;
+}
+
+
 .profile-card-5 {
   margin-top: 20px;
   cursor: pointer !important;
@@ -41,4 +100,16 @@
 .profile-card-5 .btn-primary {
   background-color: #4E5E30;
   border-color: #4E5E30;
+}
+
+
+
+.card {
+  background-color: rgba(255, 255, 255, 0.13) !important;
+  color: white;
+
+}
+
+.row-h {
+  min-height: 80vh;
 }

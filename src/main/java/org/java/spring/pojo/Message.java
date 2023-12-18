@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 
 @Entity
 public class Message {
@@ -13,15 +14,19 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Email
 	private String email;
 	
 	@Column(columnDefinition = "TEXT")
 	private String message;
 	
+	private boolean readed;
+	
 	public Message() {}
-	public Message (String email, String message) {
+	public Message (String email, String message, boolean readed) {
 		setEmail(email);
 		setMessage(message);
+		setReaded(readed);
 		
 	}
 	public int getId() {
@@ -41,6 +46,12 @@ public class Message {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public boolean isReaded() {
+		return readed;
+	}
+	public void setReaded(boolean readed) {
+		this.readed = readed;
 	}
 	
 }

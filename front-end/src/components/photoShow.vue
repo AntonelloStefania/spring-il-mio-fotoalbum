@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-		<div class="row my-5">
+		<div class="row my-5 row-h">
             <div class="col-12 text-start">
                 <a class="btn btn-sm btn-warning" @click="$emit('goBack')">Back</a>
             </div>

@@ -3,8 +3,7 @@ body{
 	padding: 0;
 	box-sizing: border-box;
 	background-repeat: no-repeat;
-	width: 100vw;
-	height: 100vh;
+
 	color: white;
 	background: rgb(43,41,40);
 	background: linear-gradient(156deg, rgba(43,41,40,1) 45%, rgba(65,24,9,1) 71%, rgba(142,49,16,1) 100%);
@@ -88,14 +87,25 @@ background-color:rgb(114, 50, 12) !important ;
     border-color:#4E5E30;
 }
 
-.footer{
-	position:absolute;
-	bottom:0;
-	left:0;
-	right:0;
-}
+
 .card{
 	background-color: rgba(255, 255, 255, 0.13) !important;
 	color:white;
 	
+}
+
+
+.row-h {
+  min-height: 80vh;
+}
+
+.message-btn{
+	position:relative;
+}
+
+.message-alert{
+
+	position:absolute;
+	top:-5px;
+	left:-10px;
 }

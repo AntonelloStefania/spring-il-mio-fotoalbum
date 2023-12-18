@@ -14,11 +14,12 @@
 		<div class="container">
 			<div class="row my-5">
 				<div class="col-12 text-end">
+					<a href="/messages" class="btn btn-outline-warning message-btn" sec:authorize="hasAnyAuthority('SUPERADMIN')"><span th:if="*{!message.readed}" th:each="message : ${messages}" class="message-alert"><i class="fa-solid fa-circle-exclamation fa-lg fw-bold" style="color: rgb(245, 65, 65);"></i></span>Messaggi</a>
 					<a href="/categories" class="btn btn-primary btn-sm fw-bold">Lista Categorie</a>
 					<a href="/photo/create" class="btn btn-warning btn-sm text-white fw-bold">Aggiungi foto</a>
 				</div>
 			</div>
-			<div class="row flex-wrap my-5">		
+			<div class="row flex-wrap my-5 row-h">		
 				<div class="col-xl-4 col-md-6 mt-4 "  th:each="photo:${photos}" th:object="${photo}">
 					<a th:href="@{/photo/{id} (id=*{id})}" class="text-decoration-none text-black">						
 						<div class="card profile-card-5" >
