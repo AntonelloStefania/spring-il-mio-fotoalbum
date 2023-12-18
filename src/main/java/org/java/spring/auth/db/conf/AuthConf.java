@@ -31,6 +31,7 @@ public class AuthConf {
         .authorizeHttpRequests()
         .requestMatchers(HttpMethod.POST,"/api/contact/**").permitAll()
         .requestMatchers("/api/**").permitAll()
+        .requestMatchers("/messages/**").hasAnyAuthority("SUPERADMIN")
         .requestMatchers("/**").hasAnyAuthority("ADMIN", "SUPERADMIN")
         .and().formLogin()
         .and().logout()
