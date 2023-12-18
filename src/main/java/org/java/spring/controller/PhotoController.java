@@ -68,13 +68,23 @@ public class PhotoController {
 	@GetMapping("/photo/{id}")
 	public String showPhoto(Model model,
 				@PathVariable int id) {
+		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	        
+        User user = (User) authentication.getPrincipal();
 		Photo photo = photoService.findById(id);
-		List<Category> categories = categoryService.findAll();
+					
+			if(photo.getUser().getId() == user.getId() || user.isSuperAdmin()) {
+				List<Category> categories = categoryService.findAll();            
+				model.addAttribute("photo", photo);            
+				model.addAttribute("categories", categories);        
+				
+				return "showPhoto";
+			}
+			else {
+				return "redirect:/";
+			}
 		
-		model.addAttribute("categories", categories);
-		model.addAttribute("photo", photo);
 		
-		return "showPhoto";
 	}
 	
 	@GetMapping("/photo/create")
@@ -116,12 +126,20 @@ public class PhotoController {
 	
 	@GetMapping("/photo/edit/{id}")
 	public String editPhoto(Model model, @PathVariable int id) {
+		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	        
+	        User user = (User) authentication.getPrincipal();
+	
 		Photo photo = photoService.findById(id);
+		if(photo.getUser().getId() == user.getId() || user.isSuperAdmin()) {
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
 		model.addAttribute("photo",photo);
 		
 		return "photoForm";
+		}else {
+			return "redirect:/";
+		}
 	}
 	
 	

@@ -14,4 +14,5 @@ public interface PhotoRepository extends JpaRepository<Photo, Integer> {
 	List<Photo> findByUserId(int id);
 	List<Photo> findByVisibleFalse();
 	
+	
 }
