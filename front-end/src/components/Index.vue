@@ -1,10 +1,10 @@
 <template >
 <div class="container" >
-    <row class="row-h">
+    <row class="">
         <form class="col-6 d-flex offset-3 my-5" @submit.prevent="searchPhoto">
                 <input type="text" class="form-control form-input" v-model="search" placeholder="Cerca la foto...">
         </form> 
-        <div class="row flex-wrap my-5">		
+        <div class="row flex-wrap my-5 row-h">		
             <div class="col-xl-4 col-md-6 mt-4 " v-for="photo in searchPhoto" :key="photo.id" @click="$emit('openPhoto', photo.id)">
                 
                 <div class="card profile-card-5" >

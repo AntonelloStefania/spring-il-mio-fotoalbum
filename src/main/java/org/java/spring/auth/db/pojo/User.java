@@ -37,7 +37,6 @@ public class User implements UserDetails{
 	
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
-	@Cascade(CascadeType.LOCK)
 	private List<Photo> photo;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
@@ -77,7 +76,7 @@ public class User implements UserDetails{
 		setRoles(Arrays.asList(roles));
 	}
 	public boolean isAdmin() {
-	 return	roles.stream().anyMatch(role->role.getName().equals("ADMIN"));
+		return	roles.stream().anyMatch(role->role.getName().equals("ADMIN"));
 	}
 	public boolean isSuperAdmin() {
 		 return	roles.stream().anyMatch(role->role.getName().equals("SUPERADMIN"));
